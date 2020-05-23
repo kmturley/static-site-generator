@@ -1,17 +1,25 @@
-var http = require('http');
-var xml2js = require('xml2js');
-var parser = new xml2js.Parser();
+const http = require('http');
+const xml2js = require('xml2js');
+const parser = new xml2js.Parser();
 
-var BASE_URL = 'http://localhost:8080';
+const BASE_URL = 'http://localhost:8080';
 
-http.get(BASE_URL + '/sitemap.xml', function(res) {
-  var chunks = [];
-  res.on('data', function(chunk) {
-    chunks.push(chunk);
+function getUrl(url, callback) {
+  http.get(url, (res) => {
+    const chunks = [];
+    res.on('data', (chunk) => {
+      chunks.push(chunk);
+    });
+    res.on('end', () => {
+      callback(chunks.join(''));
+    });
   });
-  res.on('end', function() {
-    parser.parseString(chunks.join(''), function(err, result) {
-      console.log('Done', result);
+}
+
+getUrl(BASE_URL + '/sitemap.xml', (str) => {
+  parser.parseString(str, (err, data) => {
+    data.urlset.url.forEach((url) => {
+      console.log(url.loc[0]);
     });
   });
 });
