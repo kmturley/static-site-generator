@@ -18,6 +18,7 @@
   "license": "ISC",
   "dependencies": {
     "http-server": "^0.12.3",
+    "sync-request": "^6.1.0",
     "xml2js": "^0.4.23"
   }
 }
