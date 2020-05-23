@@ -1,11 +1,19 @@
 const api = require('./api.js');
+const file = require('./file.js');
+
+const OUT_FILE = '/index.html';
+const OUT_FOLDER = './dist';
+const SITEMAP = '/sitemap.xml';
 
 async function init() {
-  const sitemap = await api.getXML(`${api.getBaseUrl()}/sitemap.xml`);
+  const sitemap = await api.getXML(`${api.getBaseUrl()}${SITEMAP}`);
   const items = sitemap.urlset.url;
   items.forEach(async (item) => {
-    const page = await api.get(`${api.getBaseUrl()}${item.loc[0]}`)
-    console.log(item.loc[0], page.substr(0, 100));
+    const path = item.loc[0];
+    const html = await api.get(`${api.getBaseUrl()}${path}`);
+    console.log(path, html.substr(0, 100));
+    await file.createDirectory(`${OUT_FOLDER}${path}`);
+    await file.createFile(`${OUT_FOLDER}${path}${OUT_FILE}`, html);
   });
 };
 
