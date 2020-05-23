@@ -9,9 +9,8 @@ async function init() {
   const sitemap = await api.getXML(`${api.getBaseUrl()}${SITEMAP}`);
   const items = sitemap.urlset.url;
   items.forEach(async (item) => {
-    const path = item.loc[0];
+    const path = item.loc[0] === '/' ? '' : item.loc[0];
     const html = await api.get(`${api.getBaseUrl()}${path}`);
-    console.log(path, html.substr(0, 100));
     await file.createDirectory(`${OUT_FOLDER}${path}`);
     await file.createFile(`${OUT_FOLDER}${path}${OUT_FILE}`, html);
   });
