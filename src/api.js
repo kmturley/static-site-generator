@@ -27,13 +27,7 @@ async function getJSON(url) {
   return JSON.parse(await get(url));
 };
 
-async function getXML(url) {
-  console.log('api.getXML', url);
-  return await get(url);
-};
-
 module.exports.getBaseUrl = getBaseUrl;
 module.exports.get = get;
 module.exports.getRaw = getRaw;
 module.exports.getJSON = getJSON;
-module.exports.getXML = getXML;
