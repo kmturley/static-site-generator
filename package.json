@@ -17,8 +17,8 @@
   "author": "kmturley",
   "license": "ISC",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
     "http-server": "^0.12.3",
-    "sync-request": "^6.1.0",
-    "xml2js": "^0.4.23"
+    "sync-request": "^6.1.0"
   }
 }

@@ -1,6 +1,4 @@
 const request = require('sync-request');
-const xml2js = require('xml2js');
-const parser = new xml2js.Parser();
 
 const BASE_URL = 'http://localhost:8080';
 const TOKEN = '';
@@ -31,16 +29,7 @@ async function getJSON(url) {
 
 async function getXML(url) {
   console.log('api.getXML', url);
-  return await new Promise(async (resolve, reject) => {
-    const str = await get(url);
-    parser.parseString(str, (err, result) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(result);
-      }
-    });
-  });
+  return await get(url);
 };
 
 module.exports.getBaseUrl = getBaseUrl;
